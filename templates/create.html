@@ -1,6 +1,21 @@
 {% extends "base.html" %}
-
 {% block content %}
+  <style>
+    .container-fluid h1 {
+      text-align: center;
+    }
+
+    .container-fluid {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container-fluid form {
+      text-align: center;
+    }
+
+  </style>
+
     <h1>{% block title %} Add a New Film {% endblock %}</h1>
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %} {% for category, message in messages %} {% if category ==
@@ -54,6 +69,6 @@
                placeholder="Type IMDB"
                value="{{ request.form['imdb'] }}"></input>
         <br>
-        <button type="submit">Submit</button>
+        <button type="submit" class="btn btn-outline-primary">Submit</button>
     </form>
 {% endblock %}

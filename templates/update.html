@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+  <style>
+    body {
+      text-align: center!important;
+      flex-direction: column
+    }
+
+    .d-flex {
+      flex-direction: inherit;
+    }
+
+    .container_n {
+      display: table-caption;
+    }
+
+    .container-fluid {
+      text-align: justify;
+      max-width: 1320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .container-fluid .inner {
+      padding-bottom: 50px;
+    }
+  </style>
+
+    <h1>{% block title %} Update the records {% endblock %}</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" onclick="delete_flash(this)">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" onclick="delete_flash(this)">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+  <div class="container_n">
+    <form action="/update/{{ film_to_update._id }}" method="post">
+      <label for="name">Name<label>
+      <input type="text" placeholder="Name" name="name" value="{{ film_to_update.name }}">
+      <label for="duration">Duration</label>
+      <input type="text" placeholder="Duration" name="duration" value="{{ film_to_update.duration }}">
+      <label for="rating">Rating</label>
+      <input type="text" placeholder="Rating" name="rating" value="{{ film_to_update.rating }}">
+      <label for="year">Year</label>
+      <input type="text" placeholder="Year" name="year" value="{{ film_to_update.year }}">
+      <label for="imdb">IMDB</label>
+      <input type="text" placeholder="IMDB" name="imdb" value="{{ film_to_update.IMDB }}">
+      <input type="submit" value="Done" class="btn btn-secondary">
+    </form>
+  </div>
+{% endblock %}

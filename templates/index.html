@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Home Page{% endblock %}
+
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/cover.css') }}">
 <style>
@@ -8,30 +9,70 @@
     flex-direction: column
   }
 
+  .d-flex {
+    flex-direction: inherit;
+  }
+
   .container-fluid {
     text-align: justify;
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
   }
+
+  .container-fluid .inner {
+    padding-bottom: 50px;
+  }
+
 </style>
 <form action="#" method="post">
-  <h1>All films on the site:</h1>
-  {% for el in films %}
-  <div class="inner cover">
-    <h2>Name: {{ el.name }}</h2>
-    <p>Duration: {{ el.duration }}</p>
-    <p>Rating: {{ el.rating }}</p>
-    <p><b>Year: {{ el.year }}</b></p>
-    <p><b>IMDB: {{ el.IMDB }}</b></p>
-    <input type="checkbox"  name="removing" value="{{ el.name }}">
-    <label for="removing">Delete?</label>
-    <!-- <a href="#" class="btn btn-lg btn-default">Learn more</a> -->
+  <div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Panel heading</div>
 
+  <!-- Table -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Duration</th>
+          <th>Rating</th>
+          <th>Year</th>
+          <th>IMDB</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for el in films %}
+        <tr>
+          <td>{{ el._id }}</td>
+          <td>{{ el.name }}</td>
+          <td>{{ el.duration }}</td>
+          <td>{{ el.rating }}</td>
+          <td>{{ el.year }}</td>
+          <td>{{ el.IMDB }}</td>
+          <td>
+            <input type="checkbox"  name="removing" value="{{ el._id }}">
+            <label for="removing">Delete</label>
+          </td>
+          <td><a href="/update/{{ el._id }}" class="btn btn-outline-secondary">Update</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
   </div>
-  {% endfor %}
+
+
   <button class="w-100 btn btn-lg btn-primary" type="button" onclick="window.location.href='/create'" method="get">Create a new record</button>
   <button class="w-100 btn btn-lg btn-primary" type="submit">Delete</button>
   <div class="mastfoot">
     <div class="inner">
-      <p>Footer</p>
+      <p id="date" style="text-align: center"></p>
+      <script>
+        document.getElementById("date").innerHTML = Date();
+      </script>
     </div>
   </div>
 </form>

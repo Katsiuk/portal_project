@@ -55,10 +55,11 @@ def home():
         if request.method == 'POST':
             found_records = request.form.getlist('removing')
             for elem in found_records:
-                db.session.delete(film.query.filter_by(name=elem).first())
+                db.session.delete(film.query.filter_by(_id=elem).first())
                 db.session.commit()
             return redirect(url_for('home'))
     else:
+        flash("Please login or sing up", category="error")
         return redirect(url_for("register"))
     return render_template("index.html", films=films)
 
@@ -94,6 +95,28 @@ def create():
     
 
     return render_template('create.html')
+
+@app.route("/update/<int:_id>", methods=['GET', 'POST'])
+def update(_id):
+    film_to_update = film.query.get_or_404(_id)
+    films = film.query.all()
+    if "user" in session:
+        user = session["user"]
+        if request.method == 'POST':
+            film_to_update.name = request.form['name']
+            film_to_update.duration = request.form['duration']
+            film_to_update.rating = request.form['rating']
+            film_to_update.year = request.form['year']
+            film_to_update.IMDB = request.form['imdb']
+            try:
+                db.session.commit()
+                return redirect('/home')
+            except:
+                return "There was a problem updating that film..."
+        else:
+            return render_template("update.html", film_to_update=film_to_update)
+    else:
+        return redirect(url_for("register"))
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
