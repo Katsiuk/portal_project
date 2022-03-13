@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cover.css') }}">
+<style>
+  body {
+    text-align: center!important;
+    flex-direction: column
+  }
+
+  .container-fluid {
+    text-align: justify;
+  }
+</style>
+<form action="#" method="post">
+  <h1>All films on the site:</h1>
+  {% for el in films %}
+  <div class="inner cover">
+    <h2>Name: {{ el.name }}</h2>
+    <p>Duration: {{ el.duration }}</p>
+    <p>Rating: {{ el.rating }}</p>
+    <p><b>Year: {{ el.year }}</b></p>
+    <p><b>IMDB: {{ el.IMDB }}</b></p>
+    <input type="checkbox"  name="removing" value="{{ el.name }}">
+    <label for="removing">Delete?</label>
+    <!-- <a href="#" class="btn btn-lg btn-default">Learn more</a> -->
+
+  </div>
+  {% endfor %}
+  <button class="w-100 btn btn-lg btn-primary" type="button" onclick="window.location.href='/create'" method="get">Create a new record</button>
+  <button class="w-100 btn btn-lg btn-primary" type="submit">Delete</button>
+  <div class="mastfoot">
+    <div class="inner">
+      <p>Footer</p>
+    </div>
+  </div>
+</form>
+
+
+{% endblock %}
