@@ -170,7 +170,6 @@ def register():
         user = request.form["lg"]
         email = request.form["em"]
         passwd, passwdc = request.form["psw"], request.form["pswc"]
-        #session["user"], session["email"], session["password"] = user, email, passwd
 
         found_user = users.query.filter_by(name=user).first()
         if found_user:
@@ -201,4 +200,5 @@ def register():
 
 if __name__ == '__main__':
     db.create_all()
-    app.run(debug=True)
+    #app.run(debug=True)
+    app.run()
