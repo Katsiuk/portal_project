@@ -4,6 +4,10 @@ pipeline {
         stage('Build') {
             steps {
              sh 'echo "Hello, Github!"'
+	     sh '''
+	         ls -lah /home/
+		 echo "Finished!!!"
+	     '''
             }
         }
     }
