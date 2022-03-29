@@ -5,6 +5,7 @@ pipeline {
             steps {
              sh 'echo "Hello, Github!"'
 	     sh '''
+	     	 df -h
 	         ls -lah /home/
 		 echo "Finished!!!"
 	     '''
