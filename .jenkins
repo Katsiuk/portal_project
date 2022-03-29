@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bash 'echo "Hello, World!'
-                bash 'apt update && apt upgrade -y'
+             sh 'echo "Hello, Github!"'
             }
         }
     }
