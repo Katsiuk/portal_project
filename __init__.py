@@ -5,7 +5,7 @@ import datetime
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:34490152@localhost/portal'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://portal:W5edhu8Z6^@localhost/portal'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = "hello"
 app.permanent_session_lifetime = datetime.timedelta(minutes=10)
@@ -201,4 +201,4 @@ def register():
 if __name__ == '__main__':
     db.create_all()
     #app.run(debug=True)
-    app.run()
+    app.run(host='0.0.0.0')
