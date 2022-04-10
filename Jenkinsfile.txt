@@ -1,0 +1,30 @@
+node {
+    def doc
+
+    stage('Clone repository') 
+    {
+        checkout scm
+    }
+
+    stage('Build image') 
+    {
+        doc = docker.build("dochonze/portal")
+    }
+
+    stage('Test image') 
+   {      
+        doc.inside
+        {
+            echo "Test has been completed successfully"
+        }
+    }
+
+    stage('Push image') {
+       
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-service') {
+            doc.push("${env.BUILD_NUMBER}")
+            doc.push("latest")
+            } 
+                echo "Pushing image to DockerHub"
+    }
+}
